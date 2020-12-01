@@ -18,7 +18,7 @@ public class TomcatServer {
         Tomcat.addServlet(ctx, "error", new NotFoundServlet());
         Tomcat.addServlet(ctx, "add", new AddRecipeServlet());
         Tomcat.addServlet(ctx, "image", new ImageServlet());
-
+        System.out.println("FDD");
         ctx.addServletMapping("", "recipes");
         ctx.addServletMapping("/add", "add");
         ctx.addServletMapping("/recipes", "recipes");
