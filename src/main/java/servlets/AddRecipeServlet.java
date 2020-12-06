@@ -1,7 +1,7 @@
 package servlets;
 
 import model.Recipe;
-import model.RecipeRepository;
+import repository.RecipeRepository;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.servlet.ServletException;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -19,15 +18,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @MultipartConfig
 @WebServlet("/add")
 public class AddRecipeServlet extends HttpServlet {
 
     RecipeRepository recipeRepository = RecipeRepository.getInstance();
+    private final String PATH = "C:\\Users\\Katy\\Documents\\M1S1\\TPJAD\\Laboratoare\\Servlet\\RecipeServletApp\\src\\main\\webapp";
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -130,22 +130,27 @@ public class AddRecipeServlet extends HttpServlet {
             String name = req.getParameter("name");
             int dificulty = Integer.parseInt(req.getParameter("dificulty"));
             int time = Integer.parseInt(req.getParameter("time"));
-            List<String> ingredients = new ArrayList<>(Arrays.asList(req.getParameter("ingredients").split("/n")));
+            List<String> ingredients = Arrays.asList(req.getParameter("ingredients").split("\n"));
             String method = req.getParameter("method");
-
-            boolean uploaded = doUpload(req);
-            if (uploaded) {
-                Recipe recipe = new Recipe(recipeRepository.getLastId() + 1, name, ingredients, method, dificulty, time);
-                recipeRepository.addRecipe(recipe);
-                resp.sendRedirect(req.getContextPath() + "/recipes");
-            } else
-                resp.sendRedirect(req.getContextPath() + "/error");
+            Recipe recipe = new Recipe(name, ingredients, method, dificulty, time);
+            Integer id = recipeRepository.addRecipe(recipe);
+            if (Objects.isNull(id)) {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Recipe not added!");
+                return;
+            }
+            boolean uploaded = doUpload(req, id);
+            if (!uploaded) {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Recipe not added. Image not uploaded");
+                recipeRepository.deleteRecipe(id);
+                return;
+            }
+            resp.sendRedirect(req.getContextPath() + "/recipes");
         } catch (Exception e) {
-            resp.sendRedirect(req.getContextPath() + "/error");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Recipe not added!");
         }
     }
 
-    private boolean doUpload(HttpServletRequest request) throws IOException, ServletException {
+    private boolean doUpload(HttpServletRequest request, int id) throws IOException, ServletException {
 
         Part filePart = request.getPart("image");
         String filename = getFileName(filePart);
@@ -154,7 +159,7 @@ public class AddRecipeServlet extends HttpServlet {
         String fileUploadLocation = request.getRealPath("/") + "/pictures/";
         Path newUploadLocation = Paths.get(fileUploadLocation);
         String extension = FilenameUtils.getExtension(filename);
-        String newFilename = (recipeRepository.getLastId() + 1) + "." + extension;
+        String newFilename = id + "." + extension;
         Files.createDirectories(newUploadLocation);
         try (InputStream inputStream = filePart.getInputStream()) {
 

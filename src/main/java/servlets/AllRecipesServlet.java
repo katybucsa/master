@@ -1,7 +1,7 @@
 package servlets;
 
 import model.Recipe;
-import model.RecipeRepository;
+import repository.RecipeRepository;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -87,7 +87,7 @@ public class AllRecipesServlet extends HttpServlet {
         out.println("<title>Recipe book</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<p><h2>Recipes list</h2>       " +
+        out.println("<p><h2>Lista de retete</h2>       " +
                 "<form action=\"add\"><input type=\"submit\" value=\"Adauga\"></form></p>");
         out.println("<div style=\"line-height: 2.5em\">");
         out.println("<ul style=\"list-style: none\">");

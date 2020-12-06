@@ -1,6 +1,5 @@
 package servlets;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ public class ImageServlet extends HttpServlet {
 
     public void init() {
 
-        this.imagePath = "/pictures";
+        this.imagePath = "C:\\Users\\Katy\\Documents\\M1S1\\TPJAD\\Laboratoare\\Servlet\\RecipeServletApp\\src\\main\\webapp\\pictures";
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -28,7 +27,7 @@ public class ImageServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        File image = new File(request.getRealPath("/") + imagePath, URLDecoder.decode(requestedImage, "UTF-8"));
+        File image = new File(imagePath, URLDecoder.decode(requestedImage, "UTF-8"));
 
         if (!image.exists()) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);

@@ -17,6 +17,14 @@ public class Recipe {
     private String name;
     private List<String> ingredients;
     private String method;
-    private int dificultyRanking;
+    private int dificulty;
     private int preparingTime;
+
+    public Recipe(String name, List<String> ingredients, String method, int dificulty, int preparingTime) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.method = method;
+        this.dificulty = dificulty;
+        this.preparingTime = preparingTime;
+    }
 }

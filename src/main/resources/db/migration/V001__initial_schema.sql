@@ -1,10 +1,10 @@
-CREATE TABLE IF NOT EXISTS GRADE (
+CREATE TABLE IF NOT EXISTS RECIPE (
   id serial,
   name VARCHAR(128),
   ingredients TEXT[] NOT NULL,
   method VARCHAR(2048) NOT NULL,
-  dificulty_ranking int NOT NULL,
+  dificulty int NOT NULL,
   preparing_time int NOT NULL,
-  constraint pk_recipe primary key (id)
-  constraint score_rank check (dificulty_ranking>=1 and dificulty_ranking<=5)
+  constraint pk_recipe primary key (id),
+  constraint score_rank check (dificulty>=1 and dificulty<=5)
 );

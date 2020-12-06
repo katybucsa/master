@@ -1,9 +1,8 @@
 package servlets;
 
 import model.Recipe;
-import model.RecipeRepository;
+import repository.RecipeRepository;
 
-import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +19,17 @@ public class RecipeDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        Recipe recipe = null;
+        Recipe recipe;
+
         try {
             recipe = recipeRepository.getById(Integer.parseInt(req.getParameter("id")));
-            if (Objects.isNull(recipe))
-                resp.sendRedirect(req.getContextPath() + "/error");
+            if (Objects.isNull(recipe)) {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Recipe not found!");
+                return;
+            }
         } catch (Exception e) {
-            resp.sendRedirect(req.getContextPath() + "/error");
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Recipe not found!");
+            return;
         }
 
         resp.setContentType("text/html");
@@ -100,14 +103,14 @@ public class RecipeDetailsServlet extends HttpServlet {
         out.println("<h1>" + recipe.getName() + " </h1>");
         out.println("<p><h3>Dificultate: ");
         int i;
-        for (i = 0; i < recipe.getDificultyRanking(); i++) {
+        for (i = 0; i < recipe.getDificulty(); i++) {
             out.println("<span class=\"fa fa-star checked\"></span>");
         }
         for (; i < 5; i++)
             out.println("<span class=\"fa fa-star unchecked\"></span>");
         out.println("</h3></p>");
         out.println("<p><h3>Timp de preparare: " + recipe.getPreparingTime() + " de minute</h3></p>");
-        out.println("<img src=\"/image/" + recipe.getId() + ".jpg\">");
+        out.println("<img src=\"" + req.getContextPath() + "/image/" + recipe.getId() + ".jpg\">");
         out.println("<h3>Ingredients:</h3>");
         out.println("<ul>");
         recipe.getIngredients().forEach(in -> {

@@ -1,6 +1,7 @@
-package model;
+package repository;
 
 
+import model.Recipe;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.DBConnection;

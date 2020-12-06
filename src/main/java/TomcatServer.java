@@ -15,7 +15,6 @@ public class TomcatServer {
         ctx.setAllowCasualMultipartParsing(true);
         Tomcat.addServlet(ctx, "recipes", new AllRecipesServlet());
         Tomcat.addServlet(ctx, "details", new RecipeDetailsServlet());
-        Tomcat.addServlet(ctx, "error", new NotFoundServlet());
         Tomcat.addServlet(ctx, "add", new AddRecipeServlet());
         Tomcat.addServlet(ctx, "image", new ImageServlet());
         ctx.addServletMapping("", "recipes");
@@ -23,7 +22,6 @@ public class TomcatServer {
         ctx.addServletMapping("/recipes", "recipes");
         ctx.addServletMapping("/details", "details");
         ctx.addServletMapping("/image/*", "image");
-        ctx.addServletMapping("/error", "error");
         server.start();
         System.out.println("Start server Tomcat embedded");
         server.getServer().await();
