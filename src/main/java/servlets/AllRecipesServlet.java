@@ -22,6 +22,7 @@ public class AllRecipesServlet extends HttpServlet {
 
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
+        String redir = req.getContextPath() + "/add";
         out.println("<html>");
         out.println("<head>");
         out.println("<style>");
@@ -88,7 +89,7 @@ public class AllRecipesServlet extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
         out.println("<p><h2>Lista de retete</h2>       " +
-                "<form action=\"add\"><input type=\"submit\" value=\"Adauga\"></form></p>");
+                "<form method=\"GET\" action=\"" + redir + "\"><input type=\"submit\" value=\"Adauga\"></form></p>");
         out.println("<div style=\"line-height: 2.5em\">");
         out.println("<ul style=\"list-style: none\">");
 

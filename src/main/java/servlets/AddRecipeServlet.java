@@ -3,6 +3,7 @@ package servlets;
 import model.Recipe;
 import repository.RecipeRepository;
 import org.apache.commons.io.FilenameUtils;
+import utils.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -16,7 +17,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +27,6 @@ import java.util.Objects;
 public class AddRecipeServlet extends HttpServlet {
 
     RecipeRepository recipeRepository = RecipeRepository.getInstance();
-    private final String PATH = "C:\\Users\\Katy\\Documents\\M1S1\\TPJAD\\Laboratoare\\Servlet\\RecipeServletApp\\src\\main\\webapp";
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -130,6 +129,10 @@ public class AddRecipeServlet extends HttpServlet {
             String name = req.getParameter("name");
             int dificulty = Integer.parseInt(req.getParameter("dificulty"));
             int time = Integer.parseInt(req.getParameter("time"));
+            if (Objects.isNull(name) || name.isEmpty()) {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Recipe not added!");
+                return;
+            }
             List<String> ingredients = Arrays.asList(req.getParameter("ingredients").split("\n"));
             String method = req.getParameter("method");
             Recipe recipe = new Recipe(name, ingredients, method, dificulty, time);
@@ -156,8 +159,8 @@ public class AddRecipeServlet extends HttpServlet {
         String filename = getFileName(filePart);
         if (filename.isEmpty())
             return false;
-        String fileUploadLocation = request.getRealPath("/") + "/pictures/";
-        Path newUploadLocation = Paths.get(fileUploadLocation);
+        String fileUploadLocation = Paths.IMAGE_PATH + "/pictures/";
+        Path newUploadLocation = java.nio.file.Paths.get(fileUploadLocation);
         String extension = FilenameUtils.getExtension(filename);
         String newFilename = id + "." + extension;
         Files.createDirectories(newUploadLocation);

@@ -1,5 +1,7 @@
 package servlets;
 
+import utils.Paths;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +18,7 @@ public class ImageServlet extends HttpServlet {
 
     public void init() {
 
-        this.imagePath = "C:\\Users\\Katy\\Documents\\M1S1\\TPJAD\\Laboratoare\\Servlet\\RecipeServletApp\\src\\main\\webapp\\pictures";
+        this.imagePath = Paths.IMAGE_PATH + "\\pictures";
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -1,4 +1,3 @@
-// =========== EMBEDDED ===========
 plugins {
     id "org.flywaydb.flyway" version "7.3.0"
 }
@@ -33,7 +32,7 @@ dependencies {
             'org.eclipse.jetty:jetty-servlet:9.4.35.v20201120'
 }
 jar {
-//    manifest { attributes 'Main-Class': 'JettyServer' }
-    manifest { attributes 'Main-Class': 'TomcatServer' }
+    manifest { attributes 'Main-Class': 'JettyServer' }
+//    manifest { attributes 'Main-Class': 'TomcatServer' }
     from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) })
 }
