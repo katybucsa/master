@@ -1,0 +1,4 @@
+- the scope is to create a Java application that uses servlets and to deploy it on different containers: Tomcat, Jetty, Wildfly, Glassfish
+- the application has four servlets
+- servlets are configured using annotations
+- application uses PostgreSQL database and Flyway for data persistence and version control
