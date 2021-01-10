@@ -4,6 +4,8 @@ target/
 .gradle/**
 build/**
 gradle/**
+gradlew
+gradlew.bat
 src/main/webapp/**
 tomcat.8080/**
 !**/src/main/**
