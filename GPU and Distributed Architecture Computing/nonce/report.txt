@@ -1,0 +1,5 @@
+name=gpu blocks=64 threads_per_block=256 min=20.85 max=20.92 mean=20.87 avg=20.88 stdev=0.02
+name=gpu blocks=32 threads_per_block=256 min=25.84 max=25.88 mean=25.84 avg=25.85 stdev=0.01
+name=gpu blocks=32 threads_per_block=512 min=20.14 max=20.21 mean=20.14 avg=20.16 stdev=0.02 ---
+name=gpu blocks=16 threads_per_block=512 min=25.79 max=25.82 mean=25.79 avg=25.80 stdev=0.01
+name=gpu blocks=32 threads_per_block=32 min=155.72 max=155.78 mean=155.72 avg=155.75 stdev=0.02
