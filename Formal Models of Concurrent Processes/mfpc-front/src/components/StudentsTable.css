@@ -1,0 +1,31 @@
+.rdt_TableRow:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.rdt_TableRow:hover {
+    background-color: #ddd;
+}
+
+.rdt_Table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.rdt_TableCell, .rdt_TableHeadRow {
+    border: 1px solid #ddd;
+    padding: 8px;
+
+}
+.rdt_TableCell{
+    width: auto;
+}
+.rdt_TableHeadRow {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #9e9d9d;
+    color: white;
+}
+.formControl {
+    min-width: 120px;
+}
