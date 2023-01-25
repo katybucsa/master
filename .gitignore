@@ -2,15 +2,21 @@ HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 .gradle/**
+**/.gradle/**
 build/**
 gradle/**
+**/gradle/**
 gradlew
+**/gradlew
 gradlew.bat
+**/gradlew.bat
 src/main/webapp/**
 tomcat.8080/**
 !**/src/main/**
 !**/src/test/**
 **/logs
+**/build.gradle
+**/settings.gradle
 assignment/local-files
 
 ### STS ###
