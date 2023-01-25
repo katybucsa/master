@@ -1,0 +1,6 @@
+{
+    "require": {
+        "phpxmlrpc/phpxmlrpc": "4",
+      "ext-readline": "*"
+    }
+}
