@@ -45,7 +45,19 @@ build/
 ### VS Code ###
 .vscode/
 venv
+**/*.sln
 
 ### AMCSD Proj ###
 **/dalgs.exe
 **/dalgs-ref.log
+
+### Python ###
+**/*.pyc
+**/__init__.py
+
+### C# ###
+**/*.csproj
+**/bin/
+**/obj/
+
+
